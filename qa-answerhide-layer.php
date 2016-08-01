@@ -31,11 +31,15 @@ class qa_html_theme_layer extends qa_html_theme_base {
 				require_once QA_INCLUDE_DIR . 'db/metas.php';
 				if(qa_db_usermeta_get($userid, 'answerhide') == "1") {	
 					$this->output('<div class="answerhide row"><button id="viewbutton" class="answerhide-button">View/Hide Answers</button></div>');
+					qa_html_theme_base::a_list($a_list);
+					$this->output('<script>$(function(){$(\'#a_list\').hide();}) </script>');
+				}
+				else {
+					qa_html_theme_base::a_list($a_list);
 				}
 			}
+
 		}
-		qa_html_theme_base::a_list($a_list);
-		$this->output('<script>$(function(){$(\'#a_list\').hide();}) </script>');
 
 	}
 
