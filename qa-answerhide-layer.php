@@ -13,8 +13,6 @@ class qa_html_theme_layer extends qa_html_theme_base {
 	}
 	function doctype()
 	{
-
-
 		if($this->template == 'account') {
 			// add answerhide form
 			$answerhide_form = $this->answerhide_form();
