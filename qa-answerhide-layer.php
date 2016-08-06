@@ -6,7 +6,7 @@ class qa_html_theme_layer extends qa_html_theme_base {
 			$this->output('<style type="text/css">'. qa_opt('answerhide-plugin-css') .'</style>');
 			$this->output('<script type="text/javascript">
 					function answertoggle() {
-						$("#a_list").toggle();
+						$(\'#a_list\').toggle();
 						}</script>');
 		}
 		qa_html_theme_base::head_css();
@@ -30,7 +30,7 @@ class qa_html_theme_layer extends qa_html_theme_base {
 			if (isset($userid)){
 				require_once QA_INCLUDE_DIR . 'db/metas.php';
 				if(qa_db_usermeta_get($userid, 'answerhide') == "1") {	
-					$this->output('<div class="answerhide row"><button id="answertoggle" onclick="answertoggle" class="answerhide-button">View/Hide Answers</button></div>');
+					$this->output('<div class="answerhide row"><button id="answertoggle" onclick="answertoggle()" class="answerhide-button">View/Hide Answers</button></div>');
 					qa_html_theme_base::a_list($a_list);
 					$this->output('<script>$(function(){$(\'#a_list\').hide();}) </script>');
 					return;
