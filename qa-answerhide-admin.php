@@ -13,8 +13,6 @@ class qa_answerhide_admin {
 				return 'Hide Answers by Default';
 			case 'answerhide-plugin-title':
 				return 'Hide Answer';
-			case 'answerhide-plugin-css':
-				return '.answerhide { text-align:center;}';
 			default:
 				return null;
 
@@ -57,16 +55,6 @@ class qa_answerhide_admin {
 				'value' => qa_opt('answerhide-plugin-text'),
 				'type' => 'text',
 				);
-
-
-		$fields[] = array(
-				'label' => 'Answer Hide custom css',
-				'tags' => 'NAME="answerhide-plugin-css"',
-				'value' => qa_opt('answerhide-plugin-css'),
-				'type' => 'textarea',
-				'rows' => 20
-				);
-
 
 		return array(
 				'ok' => ($ok && !isset($error)) ? $ok : null,

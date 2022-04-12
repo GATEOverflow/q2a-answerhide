@@ -1,16 +1,45 @@
 <?php
 
 class qa_html_theme_layer extends qa_html_theme_base {
-	function head_css(){
-		if($this->template == 'question') {
-			$this->output('<style type="text/css">'. qa_opt('answerhide-plugin-css') .'</style>');
-			$this->output('<script type="text/javascript">
-					function answertoggle() {
-						$(\'#a_list\').toggle();
-						}</script>');
+	
+	public function q_view_buttons($q_view)
+	{
+		if($this -> template == 'question' and qa_is_logged_in())
+		{
+			$q_view['form']['buttons']['answer_hide'] = array("tags" => 'id="answer_hide"', "label" => "HIDE/SHOW ANSWERS", "popup" => "Hide or Show the Answers");
+
+			$this->output('
+<script type="text/javascript">
+function answertoggle() {
+	$(\'#a_list\').toggle();
+}
+$(document).ready(function()
+{			
+	$("#answer_hide").attr("type", "button"); 
+	$("#answer_hide").click( function Click(){answertoggle();}	);
+});
+
+</script>');	
+
+		require_once QA_INCLUDE_DIR . 'db/metas.php';
+		$userid = qa_get_logged_in_userid();
+		if(qa_db_usermeta_get($userid, 'answerhide')=="1")
+		{
+			$this->output('
+<script type="text/javascript">
+$(document).ready(function()
+{
+answertoggle();
+});
+</script>');	
+		
 		}
-		qa_html_theme_base::head_css();
+		
+		}
+		qa_html_theme_base::q_view_buttons($q_view);
+
 	}
+	
 	function doctype()
 	{
 		if($this->template == 'account') {
@@ -24,24 +53,6 @@ class qa_html_theme_layer extends qa_html_theme_base {
 		}
 		qa_html_theme_base::doctype();
 	}
-	function a_list($a_list){
-		if (!empty($a_list)) {
-			$userid=qa_get_logged_in_userid();
-			if (isset($userid)){
-				require_once QA_INCLUDE_DIR . 'db/metas.php';
-				if(qa_db_usermeta_get($userid, 'answerhide') == "1") {	
-					$this->output('<div class="answerhide row"><button id="answertoggle" onclick="answertoggle()" class="answerhide-button">View/Hide Answers</button></div>');
-					qa_html_theme_base::a_list($a_list);
-					$this->output('<script>$(function(){$(\'#a_list\').hide();}) </script>');
-					return;
-				}
-			}
-		}
-		qa_html_theme_base::a_list($a_list);
-
-	}
-
-
 	function answerhide_form() {
 		if($handle = qa_get_logged_in_handle()) {
 			require_once QA_INCLUDE_DIR . 'db/metas.php';
