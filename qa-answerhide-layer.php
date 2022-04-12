@@ -15,10 +15,15 @@ class qa_html_theme_layer extends qa_html_theme_base {
 function answertoggle() {
 	$(\'#a_list\').toggle();
 	var AH = document.getElementById("answer_hide");
-	if(AH.value=="SHOW ANSWERS")
+	//alert(AH.innerHTML);
+	if(AH.value=="SHOW ANSWERS" || AH.innerHTML=="SHOW ANSWERS"){
 		AH.value="HIDE ANSWERS";
-	else
+		AH.innerHTML="HIDE ANSWERS";
+	}
+	else{
 		AH.value="SHOW ANSWERS";
+		AH.innerHTML="SHOW ANSWERS";
+	}
 }
 
 
