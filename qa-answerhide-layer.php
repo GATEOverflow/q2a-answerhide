@@ -1,22 +1,35 @@
 <?php
 
 class qa_html_theme_layer extends qa_html_theme_base {
-	
+
 	public function q_view_buttons($q_view)
 	{
 		if($this -> template == 'question' and qa_is_logged_in())
 		{
-			$q_view['form']['buttons']['answer_hide'] = array("tags" => 'id="answer_hide"', "label" => "HIDE/SHOW ANSWERS", "popup" => "Hide or Show the Answers");
+
+			$q_view['form']['buttons']['answer_hide'] = array("tags" => 'id="answer_hide"', "label" => "HIDE ANSWERS", "popup" => "Hide or Show the Answers");
 
 			$this->output('
 <script type="text/javascript">
+
 function answertoggle() {
 	$(\'#a_list\').toggle();
+	var AH = document.getElementById("answer_hide");
+	if(AH.value=="SHOW ANSWERS")
+		AH.value="HIDE ANSWERS";
+	else
+		AH.value="SHOW ANSWERS";
 }
+
+
 $(document).ready(function()
-{			
+{	
+	var Answers_Count = document.querySelector("[itemprop=answerCount]").textContent;		
 	$("#answer_hide").attr("type", "button"); 
 	$("#answer_hide").click( function Click(){answertoggle();}	);
+	
+	if(Answers_Count==0)
+		document.getElementById("answer_hide").remove();
 });
 
 </script>');	
