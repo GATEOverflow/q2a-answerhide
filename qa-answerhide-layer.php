@@ -2,13 +2,6 @@
 
 class qa_html_theme_layer extends qa_html_theme_base {
 
-	public function q_item_stats($q_item)
-	{
-		$item = $q_item['answers_raw'];
-		qa_html_theme_base::q_item_stats($q_item);
-		
-	}
-	
 	public function q_view_buttons($q_view)
 	{
 		if($this -> template == 'question' and qa_is_logged_in())
