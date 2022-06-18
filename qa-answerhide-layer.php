@@ -7,7 +7,7 @@ class qa_html_theme_layer extends qa_html_theme_base {
 		if($this -> template == 'question' and qa_is_logged_in())
 		{
 
-			$q_view['form']['buttons']['answer_hide'] = array("tags" => 'id="answer_hide"', "label" => "HIDE ANSWERS", "popup" => "Hide or Show the Answers");
+			$q_view['form']['buttons']['answer_hide'] = array("tags" => 'id="answer_hide" name="answer_hide"', "label" => "Hide Answers", "popup" => "Hide or Show the Answers");
 
 			$this->output('
 <script type="text/javascript">
@@ -16,13 +16,13 @@ function answertoggle() {
 	$(\'#a_list\').toggle();
 	var AH = document.getElementById("answer_hide");
 	//alert(AH.innerHTML);
-	if(AH.value=="SHOW ANSWERS" || AH.innerHTML=="SHOW ANSWERS"){
-		AH.value="HIDE ANSWERS";
-		AH.innerHTML="HIDE ANSWERS";
+	if(AH.value=="Show Answers" || AH.innerHTML=="Show Answers"){
+		AH.value="Hide Answers";
+		AH.innerHTML="Hide Answers";
 	}
 	else{
-		AH.value="SHOW ANSWERS";
-		AH.innerHTML="SHOW ANSWERS";
+		AH.value="Show Answers";
+		AH.innerHTML="Show Answers";
 	}
 }
 
