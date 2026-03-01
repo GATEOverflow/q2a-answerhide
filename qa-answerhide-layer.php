@@ -13,17 +13,20 @@ class qa_html_theme_layer extends qa_html_theme_base {
 <script type="text/javascript">
 
 function answertoggle() {
-	$(\'#a_list\').toggle();
-	var AH = document.getElementById("answer_hide");
-	//alert(AH.innerHTML);
-	if(AH.value=="Show Answers" || AH.innerHTML=="Show Answers"){
-		AH.value="Hide Answers";
-		AH.innerHTML="Hide Answers";
-	}
-	else{
-		AH.value="Show Answers";
-		AH.innerHTML="Show Answers";
-	}
+    const $btn = $("#answer_hide");
+    const $answers = $("#a_list");
+
+	$(".qa-q-view .qa-q-view-c-list").slideToggle(150);
+	$answers.slideToggle(150);
+	$(".answer_input").slideToggle(150);
+	
+    if ($btn.data("hidden")) {
+        $btn.text("Hide Answers");
+        $btn.data("hidden", false);
+    } else {
+        $btn.text("Show Answers");
+        $btn.data("hidden", true);
+    }
 }
 
 
@@ -31,10 +34,11 @@ $(document).ready(function()
 {	
 	var Answers_Count = document.querySelector("[itemprop=answerCount]").textContent;		
 	$("#answer_hide").attr("type", "button"); 
+	$("#answer_hide").data("hidden", false);
 	$("#answer_hide").click( function Click(){answertoggle();}	);
 	
-	if(Answers_Count==0)
-		document.getElementById("answer_hide").remove();
+	//if(Answers_Count==0)
+	//	document.getElementById("answer_hide").remove();
 });
 
 </script>');	

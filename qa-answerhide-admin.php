@@ -10,7 +10,7 @@ class qa_answerhide_admin {
 
 		switch($option) {
 			case 'answerhide-plugin-text':
-				return 'Hide Answers by Default';
+				return 'Hide Answers & Comments by Default';
 			case 'answerhide-plugin-title':
 				return 'Hide Answer';
 			default:
