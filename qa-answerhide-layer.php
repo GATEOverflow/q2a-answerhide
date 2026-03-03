@@ -1,7 +1,7 @@
 <?php
 
 class qa_html_theme_layer extends qa_html_theme_base {
-
+	
 	public function q_view_buttons($q_view)
 	{
 		if($this -> template == 'question' and qa_is_logged_in())
@@ -10,53 +10,54 @@ class qa_html_theme_layer extends qa_html_theme_base {
 			$q_view['form']['buttons']['answer_hide'] = array("tags" => 'id="answer_hide" name="answer_hide"', "label" => "Hide Answers", "popup" => "Hide or Show the Answers");
 
 			$this->output('
-<script type="text/javascript">
+				<script type="text/javascript">
+					function answertoggle() {
+						const $btn = $("#answer_hide");
+						const $answers = $("#a_list");
+						
+						// Move after either Close or Reopen button						$("#answer_hide").insertAfter(".qa-form-light-button-close");
+						$("#answer_hide").insertAfter(".qa-form-light-button-reopen");
+						
 
-function answertoggle() {
-    const $btn = $("#answer_hide");
-    const $answers = $("#a_list");
-
-	$(".qa-q-view .qa-q-view-c-list").slideToggle(150);
-	$answers.slideToggle(150);
-	$(".answer_input").slideToggle(150);
-	
-    if ($btn.data("hidden")) {
-        $btn.text("Hide Answers");
-        $btn.data("hidden", false);
-    } else {
-        $btn.text("Show Answers");
-        $btn.data("hidden", true);
-    }
-}
+						$(".qa-q-view .qa-q-view-c-list").slideToggle(150);
+						$answers.slideToggle(150);
+						$(".answer_input").slideToggle(150);
+						
+						if ($btn.data("hidden")) {
+							$btn.text("Hide Answers");
+							$btn.data("hidden", false);
+						} else {
+							$btn.text("Show Answers");
+							$btn.data("hidden", true);
+						}
+					}
 
 
-$(document).ready(function()
-{	
-	var Answers_Count = document.querySelector("[itemprop=answerCount]").textContent;		
-	$("#answer_hide").attr("type", "button"); 
-	$("#answer_hide").data("hidden", false);
-	$("#answer_hide").click( function Click(){answertoggle();}	);
-	
-	//if(Answers_Count==0)
-	//	document.getElementById("answer_hide").remove();
-});
+					$(document).ready(function(){	
+						var Answers_Count = document.querySelector("[itemprop=answerCount]").textContent;		
+						$("#answer_hide").attr("type", "button"); 
+						$("#answer_hide").data("hidden", false);
+						$("#answer_hide").click( function Click(){
+							answertoggle();
+							});
+						
+						//if(Answers_Count==0)
+						//	document.getElementById("answer_hide").remove();
+					});
+				</script>');	
 
-</script>');	
-
-		require_once QA_INCLUDE_DIR . 'db/metas.php';
-		$userid = qa_get_logged_in_userid();
-		if(qa_db_usermeta_get($userid, 'answerhide')=="1")
-		{
-			$this->output('
-<script type="text/javascript">
-$(document).ready(function()
-{
-answertoggle();
-});
-</script>');	
-		
-		}
-		
+			require_once QA_INCLUDE_DIR . 'db/metas.php';
+			$userid = qa_get_logged_in_userid();
+			if(qa_db_usermeta_get($userid, 'answerhide')=="1")
+			{
+				$this->output('
+					<script type="text/javascript">
+					$(document).ready(function()
+					{
+						answertoggle();
+					});
+					</script>');
+			}		
 		}
 		qa_html_theme_base::q_view_buttons($q_view);
 
