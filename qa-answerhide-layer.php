@@ -15,7 +15,8 @@ class qa_html_theme_layer extends qa_html_theme_base {
 						const $btn = $("#answer_hide");
 						const $answers = $("#a_list");
 						
-						// Move after either Close or Reopen button						$("#answer_hide").insertAfter(".qa-form-light-button-close");
+						// Move after either Close or Reopen button
+						$("#answer_hide").insertAfter(".qa-form-light-button-close");
 						$("#answer_hide").insertAfter(".qa-form-light-button-reopen");
 						
 
