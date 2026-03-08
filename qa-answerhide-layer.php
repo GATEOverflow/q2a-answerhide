@@ -14,11 +14,6 @@ class qa_html_theme_layer extends qa_html_theme_base {
 					function answertoggle() {
 						const $btn = $("#answer_hide");
 						const $answers = $("#a_list");
-						
-						// Move after either Close or Reopen button
-						$("#answer_hide").insertAfter(".qa-form-light-button-close");
-						$("#answer_hide").insertAfter(".qa-form-light-button-reopen");
-						
 
 						$(".qa-q-view .qa-q-view-c-list").slideToggle(150);
 						$answers.slideToggle(150);
@@ -38,6 +33,11 @@ class qa_html_theme_layer extends qa_html_theme_base {
 						var Answers_Count = document.querySelector("[itemprop=answerCount]").textContent;		
 						$("#answer_hide").attr("type", "button"); 
 						$("#answer_hide").data("hidden", false);
+						
+						// Move after either Close or Reopen button
+						$("#answer_hide").insertAfter(".qa-form-light-button-close");
+						$("#answer_hide").insertAfter(".qa-form-light-button-reopen");
+
 						$("#answer_hide").click( function Click(){
 							answertoggle();
 							});
